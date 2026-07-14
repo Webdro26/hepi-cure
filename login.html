@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login — Hepi Cure</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="auth-wrap">
+  <div class="auth-visual">
+    <div class="auth-visual-inner">
+      <img src="images/logo.png" alt="Hepi Cure" class="auth-logo-img">
+      <h2>Welcome back to Hepi Cure</h2>
+      <p>Sign in to track your orders, manage your subscription and keep eating well — one meal at a time.</p>
+      <div class="auth-quote">
+        <div class="testi-stars" style="color:#fff">★★★★★</div>
+        <p style="color:#fff; font-size:14px; margin-top:8px;">"Hepi Cure changed my relationship with food completely."</p>
+      </div>
+    </div>
+  </div>
+  <div class="auth-form-side">
+    <div class="auth-box">
+      <a href="index.html" class="back">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+        Back to home
+      </a>
+      <h1>Login</h1>
+      <p>Enter your details to access your dashboard.</p>
+
+      <form id="loginForm" novalidate>
+        <div class="field">
+          <label for="email">Email</label>
+          <div class="input-wrap">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="M2 7l10 6 10-6"/></svg>
+            <input type="email" id="email" placeholder="you@example.com" required>
+          </div>
+        </div>
+        <div class="field">
+          <label for="password">Password</label>
+          <div class="input-wrap">
+            <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+            <input type="password" id="password" placeholder="••••••••" required>
+            <button type="button" class="toggle-pass" aria-label="Show password">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="field-row">
+          <label class="checkbox-row"><input type="checkbox" style="width:auto;"> Remember me</label>
+          <a href="forgot-password.html" class="link-accent">Forgot password?</a>
+        </div>
+        <p class="form-error" id="loginError"></p>
+        <button type="submit" class="btn btn-primary btn-block">Login</button>
+      </form>
+
+      <div class="auth-divider">or</div>
+      <a href="register.html" class="btn btn-outline btn-block">Create an Account</a>
+      <p class="auth-switch">New to Hepi Cure? <a href="register.html" class="link-accent">Register here</a></p>
+    </div>
+  </div>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/app.js"></script>
+<script>
+  initPassToggle();
+
+  // if already logged in, skip straight to dashboard
+  if(Auth.currentUser()){ /* stay, let user choose to re-login or navigate away */ }
+
+  document.getElementById("loginForm").addEventListener("submit", (e)=>{
+    e.preventDefault();
+    const errEl = document.getElementById("loginError");
+    errEl.classList.remove("show");
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value;
+    try{
+      Auth.login({email, password});
+      toast("Welcome back!");
+      setTimeout(()=> window.location.href = Auth.currentUser()?.assessmentDone ? "dashboard.html" : "assessment.html", 500);
+    }catch(err){
+      errEl.textContent = err.message;
+      errEl.classList.add("show");
+    }
+  });
+</script>
+</body>
+</html>
