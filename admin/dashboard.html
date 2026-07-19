@@ -170,17 +170,73 @@
     <button class="btn btn-primary btn-block" onclick="saveCategory()">Save Category</button>
   </div>
 </div>
+
 <div class="modal-bg" id="planModal">
-  <div class="modal admin-edit-modal">
-    <div class="modal-title-row"><h3>Edit Subscription Plan</h3><button onclick="closeAdminModal('planModal')">✕</button></div>
+  <div class="modal admin-edit-modal admin-wide-modal">
+    <div class="modal-title-row">
+      <h3>Edit Subscription Plan</h3>
+      <button onclick="closeAdminModal('planModal')">✕</button>
+    </div>
+
     <input type="hidden" id="planId">
-    <div class="field"><label>Plan Name</label><div class="input-wrap"><input id="planName" type="text"></div></div>
-    <div class="field"><label>Tagline</label><div class="input-wrap"><input id="planTagline" type="text"></div></div>
-    <div class="field"><label>Features (one per line)</label><div class="input-wrap"><textarea id="planFeatures" rows="6"></textarea></div></div>
-    <label class="check-row"><input id="planFeatured" type="checkbox"> Mark as most popular</label>
+
+    <div class="admin-form-grid">
+      <div class="field">
+        <label>Plan Number / Type</label>
+        <div class="input-wrap"><input id="planNumber" type="text" placeholder="Plan 01 · AI-Curated"></div>
+      </div>
+
+      <div class="field">
+        <label>Plan Name</label>
+        <div class="input-wrap"><input id="planName" type="text"></div>
+      </div>
+
+      <div class="field">
+        <label>Subtitle</label>
+        <div class="input-wrap"><input id="planSubtitle" type="text" placeholder="AI-Curated"></div>
+      </div>
+
+      <div class="field">
+        <label>Icon</label>
+        <div class="input-wrap">
+          <select id="planIcon">
+            <option value="curated">Curated Meal</option>
+            <option value="custom">Chat & Customise</option>
+            <option value="chef">Chef</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="field admin-full-field">
+        <label>Full Description</label>
+        <div class="input-wrap"><textarea id="planDescription" rows="5"></textarea></div>
+      </div>
+
+      <div class="field admin-full-field">
+        <label>Benefits / Tags (one per line)</label>
+        <div class="input-wrap"><textarea id="planTags" rows="5"></textarea></div>
+      </div>
+
+      <div class="field">
+        <label>Button Text</label>
+        <div class="input-wrap"><input id="planButtonText" type="text" placeholder="I'm Interested"></div>
+      </div>
+
+      <div class="field">
+        <label>WhatsApp Message</label>
+        <div class="input-wrap"><input id="planWhatsappMessage" type="text"></div>
+      </div>
+    </div>
+
+    <label class="check-row">
+      <input id="planFeatured" type="checkbox">
+      Mark as most popular
+    </label>
+
     <button class="btn btn-primary btn-block" onclick="savePlan()">Save Plan</button>
   </div>
 </div>
+
 
 <script src="../js/data.js"></script>
 <script src="../js/app.js"></script>
@@ -337,47 +393,88 @@
   }
   renderCategories();
 
+
   // Subscriptions tab
   function renderPlans(){
     document.getElementById("adminPlansGrid").innerHTML = PLANS.map(p=>`
       <div class="price-card ${p.featured?'featured':''}">
         <button class="icon-action plan-edit" onclick="openPlanModal('${p.id}')" aria-label="Edit ${p.name}">✎</button>
-        ${p.featured?'<span class="ribbon">Featured</span>':''}
+        ${p.featured?'<span class="ribbon">Most Popular</span>':''}
+        <span class="admin-plan-number">${p.number || ''}</span>
         <h3>${p.name}</h3>
-        <p class="plan-tagline">${p.tagline || ''}</p>
+        <p class="plan-tagline">${p.subtitle || p.tagline || ''}</p>
+        <p class="admin-plan-description">${p.description || ''}</p>
         <ul class="price-list">
-          ${(p.features || []).map(feature=>`
+          ${(p.tags || p.features || []).map(feature=>`
             <li>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M20 6L9 17l-5-5"/>
+              </svg>
               ${feature}
             </li>`).join('')}
         </ul>
         <p class="plan-member-count">${users.filter(u=>u.plan===p.id).length} active subscriber${users.filter(u=>u.plan===p.id).length===1?'':'s'}</p>
       </div>`).join("");
   }
+
   function openPlanModal(id){
-    const p=PLANS.find(item=>item.id===id); if(!p) return;
+    const p=PLANS.find(item=>item.id===id);
+    if(!p) return;
+
     document.getElementById('planId').value=p.id;
-    document.getElementById('planName').value=p.name;
-    document.getElementById('planTagline').value=p.tagline;
-    document.getElementById('planFeatures').value=p.features.join('\n');
-    document.getElementById('planFeatured').checked=!!p.featured;
+    document.getElementById('planNumber').value=p.number || '';
+    document.getElementById('planName').value=p.name || '';
+    document.getElementById('planSubtitle').value=p.subtitle || '';
+    document.getElementById('planIcon').value=p.icon || 'curated';
+    document.getElementById('planDescription').value=p.description || '';
+    document.getElementById('planTags').value=(p.tags || p.features || []).join('');
+    document.getElementById('planButtonText').value=p.buttonText || "I'm Interested";
+    document.getElementById('planWhatsappMessage').value=p.whatsappMessage || '';
+    document.getElementById('planFeatured').checked=Boolean(p.featured);
     document.getElementById('planModal').classList.add('open');
   }
+
   function savePlan(){
     const p=PLANS.find(item=>item.id===document.getElementById('planId').value);
     if(!p) return;
+
     const name=document.getElementById('planName').value.trim();
-    if(!name){ toast('Enter a valid plan name','error'); return; }
+    const number=document.getElementById('planNumber').value.trim();
+    const description=document.getElementById('planDescription').value.trim();
+    const tags=document.getElementById('planTags').value
+      .split('\n')
+      .map(item=>item.trim())
+      .filter(Boolean);
+
+    if(!name || !number || !description || tags.length===0){
+      toast('Complete the plan number, name, description and benefits','error');
+      return;
+    }
+
+    p.number=number;
     p.name=name;
-    p.tagline=document.getElementById('planTagline').value.trim();
-    p.features=document.getElementById('planFeatures').value.split('\n').map(x=>x.trim()).filter(Boolean);
+    p.subtitle=document.getElementById('planSubtitle').value.trim();
+    p.icon=document.getElementById('planIcon').value;
+    p.description=description;
+    p.tags=tags;
+    p.features=[...tags];
+    p.buttonText=document.getElementById('planButtonText').value.trim() || "I'm Interested";
+    p.whatsappMessage=document.getElementById('planWhatsappMessage').value.trim() ||
+      `Hello Hepi Cure, I'm interested in the ${name} subscription plan. Please share more details.`;
     p.featured=document.getElementById('planFeatured').checked;
+    p.tagline=p.subtitle;
+    p.price=0;
+    p.period='';
+
     localStorage.setItem('hc_plans',JSON.stringify(PLANS));
     closeAdminModal('planModal');
     renderPlans();
-    toast('Subscription information updated');
+    toast('Subscription plan updated');
   }
+
+  renderPlans();
+    toast('Subscription information updated');
+  
   renderPlans();
   document.getElementById("subsTableBody").innerHTML = users.filter(u=>u.plan).map(u=>`
     <tr><td>${u.name}</td><td>${u.planName}</td><td><span class="pill green">Active</span></td></tr>

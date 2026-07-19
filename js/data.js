@@ -57,26 +57,105 @@ const DEFAULT_MEALS = [
 
 let MEALS = JSON.parse(localStorage.getItem("hc_meals") || "null") || DEFAULT_MEALS.map(meal => ({...meal}));
 
-let PLANS = JSON.parse(localStorage.getItem("hc_plans") || "null") || [
+const DEFAULT_PLANS = [
   {
-    id:"basic", name:"Basic", price:2999, period:"/ 30 days",
-    tagline:"Perfect for getting started",
-    features:["Breakfast + Lunch daily","30 days of meals","Standard healthy meals","Email & chat support"],
-    featured:false
+    id:"epicures-pick",
+    number:"Plan 01 · AI-Curated",
+    name:"The Epicure's Pick",
+    subtitle:"AI-Curated",
+    description:"Tell us what you love — our AI crafts a diet plan built entirely around your taste, cravings, and lifestyle. Healthy eating that feels indulgent, not like a compromise.",
+    tags:["AI Diet Plan","Taste-First","Monthly Plan"],
+    features:["AI Diet Plan","Taste-First","Monthly Plan"],
+    icon:"curated",
+    featured:false,
+    buttonText:"I'm Interested",
+    whatsappMessage:"Hello Hepi Cure, I'm interested in The Epicure's Pick subscription plan. Please share more details.",
+    tagline:"AI-Curated · Taste-first personalised diet planning",
+    price:0,
+    period:""
   },
   {
-    id:"standard", name:"Standard", price:4499, period:"/ 30 days",
-    tagline:"Our most popular plan",
-    features:["Breakfast + Lunch + Dinner","30 days of meals","Personalised nutrition guidance","Priority chat support","Free plan changes"],
-    featured:true
+    id:"your-food-your-way",
+    number:"Plan 02 · Chat & Customise",
+    name:"Your Food, Your Way",
+    subtitle:"Chat & Customise",
+    description:"Chat with our AI, share your health goals — PCOD, thyroid, gym, weight — and receive a tailored meal plan with every ingredient listed and calories counted.",
+    tags:["PCOD · Thyroid · Gym","Calorie Tracked","Ingredients Included"],
+    features:["PCOD · Thyroid · Gym","Calorie Tracked","Ingredients Included"],
+    icon:"custom",
+    featured:true,
+    buttonText:"I'm Interested",
+    whatsappMessage:"Hello Hepi Cure, I'm interested in the Your Food, Your Way subscription plan. Please share more details.",
+    tagline:"Chat & Customise · Health-goal based meal planning",
+    price:0,
+    period:""
   },
   {
-    id:"premium", name:"Premium", price:6499, period:"/ 30 days",
-    tagline:"The complete wellness experience",
-    features:["Breakfast + Lunch + Dinner + Snacks","1-on-1 diet consultation","Priority same-day support","Free plan changes","Dedicated delivery slots"],
-    featured:false
+    id:"chefs-canvas",
+    number:"Plan 03 · Chef's Table",
+    name:"Chef's Canvas",
+    subtitle:"Chef's Table",
+    description:"A recipe from your grandmother's kitchen? Share it with us — our chef will cook it exactly as you know it, faithful and fresh, for the full length of your subscription.",
+    tags:["Your Recipe","Our Chef","Full Duration"],
+    features:["Your Recipe","Our Chef","Full Duration"],
+    icon:"chef",
+    featured:false,
+    buttonText:"I'm Interested",
+    whatsappMessage:"Hello Hepi Cure, I'm interested in the Chef's Canvas subscription plan. Please share more details.",
+    tagline:"Chef's Table · Your own recipe prepared faithfully",
+    price:0,
+    period:""
   }
 ];
+
+function normalisePlan(plan,index){
+  const fallback = DEFAULT_PLANS[index] || DEFAULT_PLANS[0];
+  const isLegacy = !plan || !plan.number || !plan.description || !Array.isArray(plan.tags);
+
+  if(isLegacy){
+    return {...fallback};
+  }
+
+  const tags = Array.isArray(plan.tags) && plan.tags.length
+    ? plan.tags
+    : (Array.isArray(plan.features) ? plan.features : fallback.tags);
+
+  return {
+    ...fallback,
+    ...plan,
+    id:plan.id || fallback.id,
+    number:plan.number || fallback.number,
+    name:plan.name || fallback.name,
+    subtitle:plan.subtitle || fallback.subtitle,
+    description:plan.description || fallback.description,
+    tags,
+    features:Array.isArray(plan.features) && plan.features.length ? plan.features : tags,
+    icon:["curated","custom","chef"].includes(plan.icon) ? plan.icon : fallback.icon,
+    featured:Boolean(plan.featured),
+    buttonText:plan.buttonText || "I'm Interested",
+    whatsappMessage:plan.whatsappMessage || fallback.whatsappMessage,
+    tagline:plan.tagline || `${plan.subtitle || fallback.subtitle} · ${fallback.tagline.split("·").slice(1).join("·").trim()}`,
+    price:0,
+    period:""
+  };
+}
+
+const storedPlans = JSON.parse(localStorage.getItem("hc_plans") || "null");
+let PLANS = (Array.isArray(storedPlans) && storedPlans.length === DEFAULT_PLANS.length
+  ? storedPlans.map(normalisePlan)
+  : DEFAULT_PLANS.map(plan=>({...plan, tags:[...plan.tags], features:[...plan.features]}))
+);
+
+/* Automatically replace old Basic / Standard / Premium localStorage data. */
+if(!Array.isArray(storedPlans) || storedPlans.some((plan,index)=>
+  !plan?.number || !plan?.description || !Array.isArray(plan?.tags) ||
+  ["Basic","Standard","Premium"].includes(plan?.name) ||
+  plan?.id !== DEFAULT_PLANS[index]?.id
+)){
+  PLANS = DEFAULT_PLANS.map(plan=>({...plan, tags:[...plan.tags], features:[...plan.features]}));
+  localStorage.setItem("hc_plans",JSON.stringify(PLANS));
+}
+
 
 const TESTIMONIALS = [
   { name:"Ananya Rao", role:"Standard Plan · 6 months", text:"Hepi Cure changed my relationship with food. The meals are genuinely tasty and I never feel like I'm 'dieting'.", img:img("indian woman portrait smiling",120,120) },

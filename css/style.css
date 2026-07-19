@@ -611,3 +611,255 @@ input,select,textarea{ font-family:var(--font-body); }
     flex-basis:36px;
   }
 }
+/* HEPI CURE PREMIUM SUBSCRIPTION UPGRADE — append to END of css/style.css */
+.subscription-showcase{
+  --sub-wine:var(--terracotta);
+  --sub-wine-soft:#B36A46;
+  --sub-gold:#D4A64A;
+  --sub-cream:#F7EFE6;
+  --sub-card:#FFFDF9;
+  --sub-brown:var(--ink);
+  --sub-muted:#6F5C50;
+background:var(--terracotta);
+position:relative;overflow:hidden;background:radial-gradient(circle at 10% 10%,rgba(200,149,42,.12),transparent 28%),radial-gradient(circle at 92% 85%,rgba(123,26,26,.09),transparent 30%),linear-gradient(180deg,var(--sub-cream),#FBF3E9)}
+[data-theme="dark"] .subscription-showcase{--sub-card:#30231c;--sub-brown:#f5eadf;--sub-muted:#d2b9aa;background:#211913}.subscription-container{position:relative;z-index:2}.subscription-orb{position:absolute;border-radius:50%;pointer-events:none;opacity:.45}.subscription-orb-one{width:240px;height:240px;left:-100px;top:110px;background:rgba(200,149,42,.15)}.subscription-orb-two{width:300px;height:300px;right:-150px;bottom:50px;background:rgba(123,26,26,.10)}
+.subscription-heading{max-width:760px;margin:0 auto 46px;text-align:center}.subscription-pill{display:inline-flex;align-items:center;gap:9px;padding:8px 16px;border-radius:999px;background:var(--sub-wine);color:#fff;font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;box-shadow:0 10px 30px rgba(123,26,26,.14);margin-bottom:18px}.subscription-pill-dot{width:7px;height:7px;border-radius:50%;background:var(--sub-gold);animation:subscriptionPulse 1.8s ease-in-out infinite}.subscription-kicker{color:var(--sub-gold);font-family:Georgia,'Times New Roman',serif;font-style:italic;font-size:16px;margin-bottom:8px}.subscription-heading h2{color:var(--sub-brown);font-size:clamp(30px,4vw,48px);margin-bottom:16px}.subscription-intro{max-width:650px;margin:0 auto;color:var(--sub-muted);font-size:16px;line-height:1.8}
+.subscription-slider{max-width:1060px;margin:0 auto}.subscription-viewport{overflow:hidden;padding:12px 8px 22px}.subscription-track{display:flex;gap:22px;transition:transform .55s cubic-bezier(.22,1,.36,1);will-change:transform}.subscription-card{position:relative;min-width:calc((100% - 44px)/3);background:var(--sub-card);color:var(--sub-brown);border:1px solid rgba(123,26,26,.10);border-radius:26px;padding:28px 25px 25px;overflow:hidden;box-shadow:0 15px 40px rgba(67,26,14,.08);transition:.35s}.subscription-card:hover{transform:translateY(-8px);box-shadow:0 22px 52px rgba(67,26,14,.15);border-color:rgba(200,149,42,.5)}.subscription-card.featured{
+    background: linear-gradient(
+        135deg,
+        var(--terracotta) 0%,
+        #B36A46 55%,
+        #8A4A2C 100%
+    );
+
+    color:#fff;
+    border:1px solid rgba(255,255,255,.08);
+    box-shadow:0 25px 60px rgba(166,93,58,.28);
+}
+.subscription-popular{position:absolute;right:18px;top:18px;border-radius:999px;background:var(--sub-gold);color:#291007;padding:6px 11px;font-size:9px;font-weight:800;letter-spacing:.12em;text-transform:uppercase}.subscription-icon{width:58px;height:58px;display:flex;align-items:center;justify-content:center;border-radius:17px;background:rgba(200,149,42,.10);border:1px solid rgba(200,149,42,.24);color:var(--sub-wine);margin-bottom:20px}.subscription-card.featured .subscription-icon{color:#F8D98E;background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.16)}.subscription-icon svg{width:31px;height:31px}.subscription-number{display:inline-flex;color:var(--sub-wine);background:rgba(123,26,26,.07);border-radius:999px;padding:5px 11px;font-size:10px;font-weight:800;letter-spacing:.11em;text-transform:uppercase;margin-bottom:14px}.subscription-card.featured .subscription-number{color:#F8E2B0;background:rgba(255,255,255,.10)}.subscription-card h3{font-family:Georgia,'Times New Roman',serif;font-size:25px;margin-bottom:11px;color:var(--sub-brown)}.subscription-description{min-height:150px;color:var(--sub-muted);font-size:14px;line-height:1.78;margin-bottom:18px}.subscription-tags{display:flex;flex-wrap:wrap;gap:7px;min-height:68px;margin-bottom:21px}.subscription-tag{padding:6px 10px;border-radius:999px;border:1px solid rgba(200,149,42,.38);background:rgba(200,149,42,.05);color:#A87518;font-size:10px;font-weight:700}
+.subscription-interest{width:100%;display:flex;align-items:center;justify-content:center;gap:8px;min-height:49px;border-radius:999px;padding:13px 18px;background:var(--sub-wine);color:#fff;font-weight:700;font-size:14px;transition:.25s}.subscription-interest:hover{transform:translateY(-2px);box-shadow:0 12px 25px rgba(123,26,26,.23);background:var(--sub-wine-soft)}.subscription-card.featured .subscription-interest{background:#B36A46;;color:var(--sub-wine)}.subscription-controls{display:flex;align-items:center;justify-content:center;gap:15px;margin-top:10px}.subscription-arrow{width:38px;height:38px;border:1.5px solid var(--sub-wine);border-radius:50%;display:flex;align-items:center;justify-content:center;color:var(--sub-wine);transition:.2s}.subscription-arrow:hover{background:var(--sub-wine);color:#fff}.subscription-arrow:disabled{opacity:.35;cursor:not-allowed}.subscription-dots{display:flex;align-items:center;gap:8px}.subscription-dot{width:8px;height:8px;border-radius:50%;border:1.5px solid var(--sub-wine);transition:.3s}.subscription-dot.active{width:24px;border-radius:6px;background:var(--sub-wine)}.subscription-message{max-width:760px;margin:42px auto 0;display:flex;align-items:center;justify-content:center;gap:15px;text-align:center;color:var(--sub-muted);font-family:Georgia,'Times New Roman',serif;font-style:italic;font-size:15px;line-height:1.8}.subscription-message strong{color:var(--sub-wine)}.subscription-message-mark{color:var(--sub-gold);font-style:normal}@keyframes subscriptionPulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.65)}}
+@media(max-width:900px){.subscription-card{min-width:calc((100% - 22px)/2)}.subscription-description{min-height:170px}}@media(max-width:640px){.subscription-showcase{padding-top:78px;padding-bottom:78px}.subscription-heading{margin-bottom:28px}.subscription-heading h2{font-size:30px}.subscription-intro{font-size:14px}.subscription-viewport{padding-left:2px;padding-right:2px}.subscription-track{gap:14px}.subscription-card{min-width:100%;padding:25px 21px 22px;border-radius:22px}.subscription-description,.subscription-tags{min-height:auto}.subscription-message{font-size:13px;align-items:flex-start}.subscription-message-mark{display:none}}
+
+
+/* ===========================================================
+   SUBSCRIPTION V2 — FINAL FIXES
+   =========================================================== */
+.subscription-track{align-items:stretch}
+.subscription-card{
+  display:flex;
+  flex-direction:column;
+  min-height:520px;
+  height:auto;
+}
+.subscription-subtitle{
+  color:var(--sub-gold);
+  font-size:12px;
+  font-weight:800;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  margin:-2px 0 8px;
+}
+.subscription-card.featured .subscription-subtitle{color:#F8D98E}
+.subscription-description{
+  min-height:0;
+  margin-bottom:20px;
+}
+.subscription-feature-list{
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  margin:0 0 24px;
+  padding-top:18px;
+  border-top:1px solid rgba(123,26,26,.10);
+}
+.subscription-card.featured .subscription-feature-list{
+  border-top-color:rgba(255,255,255,.14);
+}
+.subscription-feature-list li{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  color:var(--sub-muted);
+  font-size:13px;
+  font-weight:600;
+}
+.subscription-card.featured .subscription-feature-list li{color:rgba(255,255,255,.9)}
+.subscription-check{
+  width:23px;
+  height:23px;
+  flex:0 0 23px;
+  border-radius:50%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:rgba(200,149,42,.12);
+  color:var(--sub-gold);
+  font-size:12px;
+  font-weight:900;
+}
+.subscription-card.featured .subscription-check{
+  background:rgba(255,255,255,.10);
+  color:#F8D98E;
+}
+.subscription-interest{margin-top:auto}
+.subscription-dots{display:none}
+.subscription-controls{margin-top:14px}
+@media(min-width:901px){
+  .subscription-controls{display:none}
+}
+@media(max-width:900px){
+  .subscription-dots{display:flex}
+  .subscription-card{min-height:500px}
+}
+@media(max-width:640px){
+  .subscription-card{min-height:0}
+}
+
+/* Admin subscription editor */
+.admin-plan-number{
+  display:inline-flex;
+  align-self:flex-start;
+  margin-bottom:12px;
+  padding:5px 10px;
+  border-radius:999px;
+  background:rgba(166,93,58,.10);
+  color:var(--terracotta);
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+.price-card.featured .admin-plan-number{
+  background:rgba(255,255,255,.13);
+  color:#fff;
+}
+.admin-plan-description{
+  color:var(--text-muted);
+  font-size:13px;
+  line-height:1.65;
+  margin:12px 0 18px;
+}
+.price-card.featured .admin-plan-description{color:rgba(255,255,255,.84)}
+
+/* Featured subscription card text fix */
+.subscription-card.featured{
+  background:linear-gradient(
+    145deg,
+    #B86A42 0%,
+    #A65D3A 55%,
+    #8A4A2C 100%
+  ) !important;
+
+  color:#fff !important;
+}
+
+.subscription-card.featured h3,
+.subscription-card.featured .subscription-subtitle,
+.subscription-card.featured .subscription-description,
+.subscription-card.featured .subscription-number,
+.subscription-card.featured .subscription-feature-list li{
+  color:#fff !important;
+}
+
+.subscription-card.featured .subscription-description{
+  color:rgba(255,255,255,.88) !important;
+}
+
+.subscription-card.featured .subscription-number{
+  background:rgba(255,255,255,.14) !important;
+  color:#FFF3DF !important;
+}
+
+.subscription-card.featured .subscription-icon{
+  color:#FFE09A !important;
+  background:rgba(255,255,255,.10) !important;
+  border-color:rgba(255,255,255,.22) !important;
+}
+
+.subscription-card.featured .subscription-check{
+  background:rgba(255,255,255,.13) !important;
+  color:#FFE09A !important;
+}
+
+.subscription-card.featured .subscription-feature-list{
+  border-top-color:rgba(255,255,255,.18) !important;
+}
+
+.subscription-card.featured .subscription-interest{
+  background:#F7E7D5 !important;
+  color:#8A4A2C !important;
+  opacity:1 !important;
+}
+
+.subscription-card.featured .subscription-interest:hover{
+  background:#fff !important;
+  color:#A65D3A !important;
+}
+/* Mobile hero image improvement */
+@media (max-width: 640px){
+
+  .hero{
+    padding:32px 0 24px;
+  }
+
+  .hero-grid{
+    grid-template-columns:1fr;
+    gap:28px;
+  }
+
+  .hero-copy{
+    text-align:left;
+  }
+
+  .hero-copy h1{
+    font-size:32px;
+    line-height:1.08;
+  }
+
+  .hero-copy p{
+    font-size:14px;
+    line-height:1.6;
+    margin-bottom:22px;
+  }
+
+  .hero-actions{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:10px;
+  }
+
+  .hero-actions .btn{
+    width:100%;
+    padding:13px 20px;
+  }
+
+  .hero-visual{
+    width:100%;
+  }
+
+  .hero-photo{
+    width:100%;
+    height:330px;
+    aspect-ratio:auto;
+    border-radius:22px;
+  }
+
+  .hero-photo img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    object-position:center 42%;
+  }
+}
+
+.webdro-link{
+    color: #ffffff;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all .3s ease;
+}
+
+.webdro-link:hover{
+    color: #F8D98E;
+    text-decoration: underline;
+}

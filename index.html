@@ -132,17 +132,33 @@
   </div>
 </section>
 
-<!-- PRICING PREVIEW -->
-<section class="section" id="pricing" style="background:var(--cream-deep);">
-  <div class="container">
-    <div class="section-head center reveal">
-      <span class="eyebrow">Subscriptions</span>
-      <h2>Plans for every kind of appetite</h2>
-      <p>Register to unlock your personalised plan — subscribing happens instantly over WhatsApp.</p>
+<!-- REPLACE THE OLD PRICING/SUBSCRIPTION SECTION WITH THIS -->
+<section class="subscription-showcase section" id="pricing">
+  <div class="subscription-orb subscription-orb-one" aria-hidden="true"></div>
+  <div class="subscription-orb subscription-orb-two" aria-hidden="true"></div>
+  <div class="container subscription-container">
+    <div class="subscription-heading reveal">
+      <span class="subscription-pill"><span class="subscription-pill-dot"></span>Personalised Subscription Plans</span>
+      <p class="subscription-kicker">Healthy food, designed around you</p>
+      <h2>Choose an experience that fits your taste, goals and lifestyle.</h2>
+      <p class="subscription-intro">From AI-curated diet planning to recipes from your own family kitchen, Hepi Cure makes healthy eating personal, practical and genuinely enjoyable.</p>
     </div>
-    <div class="pricing-grid" id="pricing-grid"></div>
+    <div class="subscription-slider reveal" aria-label="Hepi Cure subscription plans">
+      <div class="subscription-viewport"><div class="subscription-track" id="subscriptionTrack"></div></div>
+      <div class="subscription-controls">
+        <button class="subscription-arrow" id="subscriptionPrev" type="button" aria-label="Previous subscription plan">←</button>
+        <div class="subscription-dots" id="subscriptionDots" aria-label="Subscription slide navigation"></div>
+        <button class="subscription-arrow" id="subscriptionNext" type="button" aria-label="Next subscription plan">→</button>
+      </div>
+    </div>
+    <div class="subscription-message reveal">
+      <span class="subscription-message-mark">✦</span>
+      <p>Every meal is <strong>calorie-conscious and diet-aligned</strong> — and still absolutely, unapologetically delicious. Because your food is made by <strong>people just like you.</strong></p>
+      <span class="subscription-message-mark">✦</span>
+    </div>
   </div>
 </section>
+
 
 <!-- FAQ -->
 <section class="section" id="faq" style="background:var(--cream-deep);">
@@ -193,11 +209,23 @@
         </ul>
       </div>
     </div>
-    <div class="footer-bottom">
-      <span>© 2026 Hepi Cure. All rights reserved.</span>
-      <span>Made with 🌿 for healthier lives.</span>
-    </div>
-  </div>
+   <div class="footer-bottom">
+    <span>© 2026 Hepi Cure. All rights reserved.</span>
+
+    <span>
+        Made with 🌿 for healthier lives.
+        &nbsp;|&nbsp;
+        Designed & Developed by
+        <a
+            href="https://webdro26.vercel.app/"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="webdro-link"
+        >
+            WEBDRO
+        </a>
+    </span>
+</div>
 </footer>
 
 <a class="fab-wa" href="https://wa.me/917300748429" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
@@ -225,18 +253,149 @@
   }
   renderTabs(); renderMeals();
 
-  // Pricing
-  document.getElementById("pricing-grid").innerHTML = PLANS.map(p=>`
-    <div class="price-card reveal ${p.featured?'featured':''}">
-      ${p.featured?'<span class="ribbon">Most Popular</span>':''}
-      <h3>${p.name}</h3>
-      <p style="font-size:13px;${p.featured?'color:rgba(255,255,255,.8)':'color:var(--text-muted)'}">${p.tagline}</p>
-      <div class="plan-price">₹${p.price}<span> ${p.period}</span></div>
-      <ul class="price-list">
-        ${p.features.map(f=>`<li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>${f}</li>`).join("")}
-      </ul>
-      <a href="register.html" class="btn ${p.featured?'btn-ghost-light':'btn-primary'} btn-block">Get Started</a>
-    </div>`).join("");
+  /* REPLACE THE OLD // Pricing BLOCK IN index.html WITH THIS */
+const subscriptionIcons = {
+    curated:`<svg viewBox="0 0 48 48" fill="none" aria-hidden="true">
+      <ellipse cx="24" cy="34" rx="16" ry="4" stroke="currentColor" stroke-width="1.8"/>
+      <path d="M8 34Q8 18 24 15Q40 18 40 34" stroke="currentColor" stroke-width="2"/>
+      <circle cx="24" cy="14" r="3" fill="currentColor"/>
+      <path d="m38 12 1.2-3 1.2 3 3 1.2-3 1.2-1.2 3-1.2-3-3-1.2Z" fill="currentColor"/>
+    </svg>`,
+    custom:`<svg viewBox="0 0 48 48" fill="none" aria-hidden="true">
+      <path d="M7 8Q7 5 10 5h28q3 0 3 3v19q0 3-3 3H27l-7 7v-7H10q-3 0-3-3Z" stroke="currentColor" stroke-width="2"/>
+      <ellipse cx="24" cy="19" rx="9" ry="3.5" stroke="currentColor" stroke-width="1.5"/>
+      <path d="M15 19q1 6.5 9 7.5 8-1 9-7.5" stroke="currentColor" stroke-width="1.5"/>
+    </svg>`,
+    chef:`<svg viewBox="0 0 48 48" fill="none" aria-hidden="true">
+      <rect x="10" y="34" width="28" height="8" rx="2.5" stroke="currentColor" stroke-width="2"/>
+      <path d="M12 34q-2-7 1-13 3-8 11-10 8 2 11 10 3 6 1 13" stroke="currentColor" stroke-width="2"/>
+      <path d="M12 29q6 2 12 0 6 2 12 0" stroke="currentColor" stroke-width="1.3"/>
+    </svg>`
+  };
+
+  let subscriptionIndex = 0;
+  let subscriptionTimer;
+
+  function subscriptionWhatsAppLink(plan){
+    const number = localStorage.getItem("hc_whatsapp") || "917300748429";
+    const message = plan.whatsappMessage ||
+      `Hello Hepi Cure, I'm interested in the ${plan.name} subscription plan. Please share more details.`;
+    return `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
+  }
+
+  function renderSubscriptionPlans(){
+    const track = document.getElementById("subscriptionTrack");
+    const dots = document.getElementById("subscriptionDots");
+    if(!track || !dots) return;
+
+    track.innerHTML = PLANS.map(plan=>`
+      <article class="subscription-card ${plan.featured ? "featured" : ""}">
+        ${plan.featured ? '<span class="subscription-popular">Most Popular</span>' : ""}
+        <div class="subscription-icon">${subscriptionIcons[plan.icon] || subscriptionIcons.curated}</div>
+        <span class="subscription-number">${plan.number}</span>
+        <p class="subscription-subtitle">${plan.subtitle || ""}</p>
+        <h3>${plan.name}</h3>
+        <p class="subscription-description">${plan.description}</p>
+
+        <ul class="subscription-feature-list">
+          ${(plan.tags || plan.features || []).map(tag=>`
+            <li>
+              <span class="subscription-check">✓</span>
+              <span>${tag}</span>
+            </li>
+          `).join("")}
+        </ul>
+
+        <a class="subscription-interest"
+           href="${subscriptionWhatsAppLink(plan)}"
+           target="_blank"
+           rel="noopener">
+          ${plan.buttonText || "I'm Interested"} <span aria-hidden="true">→</span>
+        </a>
+      </article>
+    `).join("");
+
+    dots.innerHTML = PLANS.map((_,index)=>`
+      <button type="button"
+        class="subscription-dot ${index===0 ? "active" : ""}"
+        data-subscription-index="${index}"
+        aria-label="View subscription plan ${index+1}">
+      </button>
+    `).join("");
+
+    dots.querySelectorAll(".subscription-dot").forEach(dot=>{
+      dot.addEventListener("click",()=>{
+        subscriptionIndex = Number(dot.dataset.subscriptionIndex);
+        updateSubscriptionSlider();
+        restartSubscriptionTimer();
+      });
+    });
+
+    updateSubscriptionSlider();
+  }
+
+  function subscriptionCardsVisible(){
+    if(window.innerWidth <= 640) return 1;
+    if(window.innerWidth <= 900) return 2;
+    return 3;
+  }
+
+  function updateSubscriptionSlider(){
+    const track = document.getElementById("subscriptionTrack");
+    if(!track) return;
+
+    const visible = subscriptionCardsVisible();
+    const maxIndex = Math.max(0,PLANS.length-visible);
+    subscriptionIndex = Math.min(subscriptionIndex,maxIndex);
+
+    if(window.innerWidth > 900){
+      track.style.transform = "translateX(0)";
+    }else{
+      const gap = window.innerWidth <= 640 ? 14 : 22;
+      const card = track.querySelector(".subscription-card");
+      const width = card ? card.getBoundingClientRect().width : 0;
+      track.style.transform = `translateX(-${subscriptionIndex*(width+gap)}px)`;
+    }
+
+    document.querySelectorAll(".subscription-dot").forEach((dot,index)=>{
+      dot.classList.toggle("active",index===subscriptionIndex);
+    });
+
+    const prev = document.getElementById("subscriptionPrev");
+    const next = document.getElementById("subscriptionNext");
+    if(prev && next){
+      prev.disabled = subscriptionIndex === 0;
+      next.disabled = subscriptionIndex >= maxIndex;
+    }
+  }
+
+  function moveSubscription(direction){
+    const maxIndex = Math.max(0,PLANS.length-subscriptionCardsVisible());
+    subscriptionIndex = Math.max(0,Math.min(maxIndex,subscriptionIndex+direction));
+    updateSubscriptionSlider();
+    restartSubscriptionTimer();
+  }
+
+  function restartSubscriptionTimer(){
+    clearInterval(subscriptionTimer);
+    if(window.innerWidth <= 900 && PLANS.length > 1){
+      subscriptionTimer = setInterval(()=>{
+        const maxIndex = Math.max(0,PLANS.length-subscriptionCardsVisible());
+        subscriptionIndex = subscriptionIndex >= maxIndex ? 0 : subscriptionIndex+1;
+        updateSubscriptionSlider();
+      },5000);
+    }
+  }
+
+  document.getElementById("subscriptionPrev")?.addEventListener("click",()=>moveSubscription(-1));
+  document.getElementById("subscriptionNext")?.addEventListener("click",()=>moveSubscription(1));
+  window.addEventListener("resize",()=>{
+    updateSubscriptionSlider();
+    restartSubscriptionTimer();
+  });
+
+  renderSubscriptionPlans();
+  restartSubscriptionTimer();
 
   // FAQ
   document.getElementById("faq-list").innerHTML = FAQS.map(f=>`
