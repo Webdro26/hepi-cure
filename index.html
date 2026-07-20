@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hepi Cure — Eat Healthy. Live Happy.</title>
-<meta name="description" content="Healthy homemade meals delivered daily. Fresh, nutrition-focused, doctor-recommended subscriptions from Hepi Cure.">
+<meta name="description" content="Healthy homemade meals delivered daily. Fresh, nutrition-focused, 
 <meta property="og:title" content="Hepi Cure — Eat Healthy. Live Happy.">
 <meta property="og:description" content="Healthy homemade meals delivered with care, every single day.">
 <meta property="og:type" content="website">
@@ -93,10 +93,16 @@
         <h3>Daily Delivery</h3>
         <p>Meals reach you on schedule, every day of your subscription.</p>
       </div>
+
       <div class="about-card reveal">
-        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a5 5 0 0 1 5 5c0 3-2 4-2 7v2H9v-2c0-3-2-4-2-7a5 5 0 0 1 5-5z"/><path d="M9 21h6"/></svg></div>
-        <h3>Doctor Recommended</h3>
-        <p>Plans are designed with input from practising nutritionists.</p>
+        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h4l2-6 4 12 2-6h6"/></svg></div>
+        <h3>Personalised Plans</h3>
+        <p> Meals tailored to your health goals, food preferences, and lifestyle.</p>
+      </div>
+      
+      
+       
+        <p></p>
       </div>
     </div>
   </div>
@@ -133,29 +139,43 @@
 </section>
 
 <!-- REPLACE THE OLD PRICING/SUBSCRIPTION SECTION WITH THIS -->
-<section class="subscription-showcase section" id="pricing">
-  <div class="subscription-orb subscription-orb-one" aria-hidden="true"></div>
-  <div class="subscription-orb subscription-orb-two" aria-hidden="true"></div>
-  <div class="container subscription-container">
-    <div class="subscription-heading reveal">
-      <span class="subscription-pill"><span class="subscription-pill-dot"></span>Personalised Subscription Plans</span>
-      <p class="subscription-kicker">Healthy food, designed around you</p>
-      <h2>Choose an experience that fits your taste, goals and lifestyle.</h2>
-      <p class="subscription-intro">From AI-curated diet planning to recipes from your own family kitchen, Hepi Cure makes healthy eating personal, practical and genuinely enjoyable.</p>
+<!-- PERSONALISED SUBSCRIPTIONS -->
+<section class="hc-personalised section" id="pricing">
+  <div class="hc-personalised-blob hc-personalised-blob-one"></div>
+  <div class="hc-personalised-blob hc-personalised-blob-two"></div>
+
+  <div class="container">
+
+    <div class="section-head center reveal hc-personalised-heading">
+      <span class="eyebrow">Freshly Curated For You</span>
+
+      <h2>
+        Healthy food, made personal.
+      </h2>
+
+      <p>
+        Your taste, health goals and everyday routine are different.
+        That is why Hepi Cure creates meal experiences that are designed
+        around you — not copied from a standard diet chart.
+      </p>
     </div>
-    <div class="subscription-slider reveal" aria-label="Hepi Cure subscription plans">
-      <div class="subscription-viewport"><div class="subscription-track" id="subscriptionTrack"></div></div>
-      <div class="subscription-controls">
-        <button class="subscription-arrow" id="subscriptionPrev" type="button" aria-label="Previous subscription plan">←</button>
-        <div class="subscription-dots" id="subscriptionDots" aria-label="Subscription slide navigation"></div>
-        <button class="subscription-arrow" id="subscriptionNext" type="button" aria-label="Next subscription plan">→</button>
+
+    <div class="hc-plan-stories" id="hcPlanStories"></div>
+
+    <div class="hc-personalised-note reveal">
+      <div class="hc-note-icon">🌿</div>
+
+      <div>
+        <span>Freshly planned. Thoughtfully prepared.</span>
+
+        <p>
+          Every meal is calorie-conscious and diet-aligned — and still
+          absolutely, unapologetically delicious. Because your food is
+          made by people just like you.
+        </p>
       </div>
     </div>
-    <div class="subscription-message reveal">
-      <span class="subscription-message-mark">✦</span>
-      <p>Every meal is <strong>calorie-conscious and diet-aligned</strong> — and still absolutely, unapologetically delicious. Because your food is made by <strong>people just like you.</strong></p>
-      <span class="subscription-message-mark">✦</span>
-    </div>
+
   </div>
 </section>
 
@@ -254,148 +274,166 @@
   renderTabs(); renderMeals();
 
   /* REPLACE THE OLD // Pricing BLOCK IN index.html WITH THIS */
-const subscriptionIcons = {
-    curated:`<svg viewBox="0 0 48 48" fill="none" aria-hidden="true">
-      <ellipse cx="24" cy="34" rx="16" ry="4" stroke="currentColor" stroke-width="1.8"/>
-      <path d="M8 34Q8 18 24 15Q40 18 40 34" stroke="currentColor" stroke-width="2"/>
-      <circle cx="24" cy="14" r="3" fill="currentColor"/>
-      <path d="m38 12 1.2-3 1.2 3 3 1.2-3 1.2-1.2 3-1.2-3-3-1.2Z" fill="currentColor"/>
-    </svg>`,
-    custom:`<svg viewBox="0 0 48 48" fill="none" aria-hidden="true">
-      <path d="M7 8Q7 5 10 5h28q3 0 3 3v19q0 3-3 3H27l-7 7v-7H10q-3 0-3-3Z" stroke="currentColor" stroke-width="2"/>
-      <ellipse cx="24" cy="19" rx="9" ry="3.5" stroke="currentColor" stroke-width="1.5"/>
-      <path d="M15 19q1 6.5 9 7.5 8-1 9-7.5" stroke="currentColor" stroke-width="1.5"/>
-    </svg>`,
-    chef:`<svg viewBox="0 0 48 48" fill="none" aria-hidden="true">
-      <rect x="10" y="34" width="28" height="8" rx="2.5" stroke="currentColor" stroke-width="2"/>
-      <path d="M12 34q-2-7 1-13 3-8 11-10 8 2 11 10 3 6 1 13" stroke="currentColor" stroke-width="2"/>
-      <path d="M12 29q6 2 12 0 6 2 12 0" stroke="currentColor" stroke-width="1.3"/>
-    </svg>`
-  };
+/* =========================================================
+   HEPI CURE PERSONALISED SUBSCRIPTION SECTION
+   ========================================================= */
 
-  let subscriptionIndex = 0;
-  let subscriptionTimer;
+const hcPlanIcons = {
+  curated: `
+    <svg viewBox="0 0 48 48" fill="none" aria-hidden="true">
+      <path
+        d="M9 31c0-9 6.7-16 15-16s15 7 15 16"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+      />
+      <path
+        d="M7 32h34"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+      />
+      <path
+        d="M14 37h20"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+      />
+      <circle cx="24" cy="12" r="2.5" fill="currentColor"/>
+      <path
+        d="M37 9l1 2.5L40.5 13 38 14l-1 2.5-1-2.5-2.5-1 2.5-1.5L37 9Z"
+        fill="currentColor"
+      />
+    </svg>
+  `,
 
-  function subscriptionWhatsAppLink(plan){
-    const number = localStorage.getItem("hc_whatsapp") || "917300748429";
-    const message = plan.whatsappMessage ||
-      `Hello Hepi Cure, I'm interested in the ${plan.name} subscription plan. Please share more details.`;
-    return `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
-  }
+  custom: `
+    <svg viewBox="0 0 48 48" fill="none" aria-hidden="true">
+      <path
+        d="M8 9h32v23H27l-8 7v-7H8V9Z"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linejoin="round"
+      />
+      <circle cx="17" cy="20" r="1.8" fill="currentColor"/>
+      <circle cx="24" cy="20" r="1.8" fill="currentColor"/>
+      <circle cx="31" cy="20" r="1.8" fill="currentColor"/>
+    </svg>
+  `,
 
-  function renderSubscriptionPlans(){
-    const track = document.getElementById("subscriptionTrack");
-    const dots = document.getElementById("subscriptionDots");
-    if(!track || !dots) return;
+  chef: `
+    <svg viewBox="0 0 48 48" fill="none" aria-hidden="true">
+      <path
+        d="M13 27v-7c0-5 4-9 9-9 1 0 2 .2 3 .5A9 9 0 0 1 35 20v7"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+      />
+      <path
+        d="M12 27h24v11H12V27Z"
+        stroke="currentColor"
+        stroke-width="2"
+      />
+      <path
+        d="M18 32v6M24 32v6M30 32v6"
+        stroke="currentColor"
+        stroke-width="1.7"
+        stroke-linecap="round"
+      />
+    </svg>
+  `
+};
 
-    track.innerHTML = PLANS.map(plan=>`
-      <article class="subscription-card ${plan.featured ? "featured" : ""}">
-        ${plan.featured ? '<span class="subscription-popular">Most Popular</span>' : ""}
-        <div class="subscription-icon">${subscriptionIcons[plan.icon] || subscriptionIcons.curated}</div>
-        <span class="subscription-number">${plan.number}</span>
-        <p class="subscription-subtitle">${plan.subtitle || ""}</p>
-        <h3>${plan.name}</h3>
-        <p class="subscription-description">${plan.description}</p>
+function hcSubscriptionWhatsappLink(plan) {
+  const number =
+    localStorage.getItem("hc_whatsapp") || "917300748429";
 
-        <ul class="subscription-feature-list">
-          ${(plan.tags || plan.features || []).map(tag=>`
-            <li>
-              <span class="subscription-check">✓</span>
-              <span>${tag}</span>
-            </li>
-          `).join("")}
-        </ul>
+  const message =
+    plan.whatsappMessage ||
+    `Hello Hepi Cure, I'm interested in the ${plan.name} subscription plan. Please share more details.`;
 
-        <a class="subscription-interest"
-           href="${subscriptionWhatsAppLink(plan)}"
-           target="_blank"
-           rel="noopener">
-          ${plan.buttonText || "I'm Interested"} <span aria-hidden="true">→</span>
-        </a>
+  return `https://wa.me/${number}?text=${encodeURIComponent(message)}`;
+}
+
+function renderHcPersonalisedPlans() {
+  const container = document.getElementById("hcPlanStories");
+
+  if (!container) return;
+
+  container.innerHTML = PLANS.map((plan, index) => {
+    const benefits = plan.tags || plan.features || [];
+
+    return `
+      <article
+        class="hc-plan-story reveal ${index % 2 !== 0 ? "hc-plan-reverse" : ""}"
+      >
+
+        <div class="hc-plan-visual">
+          <div class="hc-plan-visual-circle"></div>
+
+          <div class="hc-plan-icon-wrap">
+            ${hcPlanIcons[plan.icon] || hcPlanIcons.curated}
+          </div>
+
+          <span class="hc-plan-floating-label">
+            ${plan.subtitle || "Personalised Plan"}
+          </span>
+        </div>
+
+        <div class="hc-plan-content">
+
+          <div class="hc-plan-topline">
+            <span class="hc-plan-number">
+              ${plan.number || `Plan 0${index + 1}`}
+            </span>
+
+            ${
+              plan.featured
+                ? `<span class="hc-plan-featured">Popular Choice</span>`
+                : ""
+            }
+          </div>
+
+          <h3>${plan.name}</h3>
+
+          <p class="hc-plan-description">
+            ${plan.description}
+          </p>
+
+          <div class="hc-plan-benefits">
+            ${benefits
+              .map(
+                benefit => `
+                  <div class="hc-plan-benefit">
+                    <span class="hc-plan-check">✓</span>
+                    <span>${benefit}</span>
+                  </div>
+                `
+              )
+              .join("")}
+          </div>
+
+          <a
+            href="${hcSubscriptionWhatsappLink(plan)}"
+            target="_blank"
+            rel="noopener"
+            class="btn btn-primary hc-plan-button"
+          >
+            ${plan.buttonText || "I'm Interested"}
+
+            <span aria-hidden="true">→</span>
+          </a>
+
+        </div>
+
       </article>
-    `).join("");
+    `;
+  }).join("");
 
-    dots.innerHTML = PLANS.map((_,index)=>`
-      <button type="button"
-        class="subscription-dot ${index===0 ? "active" : ""}"
-        data-subscription-index="${index}"
-        aria-label="View subscription plan ${index+1}">
-      </button>
-    `).join("");
+  initReveal();
+}
 
-    dots.querySelectorAll(".subscription-dot").forEach(dot=>{
-      dot.addEventListener("click",()=>{
-        subscriptionIndex = Number(dot.dataset.subscriptionIndex);
-        updateSubscriptionSlider();
-        restartSubscriptionTimer();
-      });
-    });
-
-    updateSubscriptionSlider();
-  }
-
-  function subscriptionCardsVisible(){
-    if(window.innerWidth <= 640) return 1;
-    if(window.innerWidth <= 900) return 2;
-    return 3;
-  }
-
-  function updateSubscriptionSlider(){
-    const track = document.getElementById("subscriptionTrack");
-    if(!track) return;
-
-    const visible = subscriptionCardsVisible();
-    const maxIndex = Math.max(0,PLANS.length-visible);
-    subscriptionIndex = Math.min(subscriptionIndex,maxIndex);
-
-    if(window.innerWidth > 900){
-      track.style.transform = "translateX(0)";
-    }else{
-      const gap = window.innerWidth <= 640 ? 14 : 22;
-      const card = track.querySelector(".subscription-card");
-      const width = card ? card.getBoundingClientRect().width : 0;
-      track.style.transform = `translateX(-${subscriptionIndex*(width+gap)}px)`;
-    }
-
-    document.querySelectorAll(".subscription-dot").forEach((dot,index)=>{
-      dot.classList.toggle("active",index===subscriptionIndex);
-    });
-
-    const prev = document.getElementById("subscriptionPrev");
-    const next = document.getElementById("subscriptionNext");
-    if(prev && next){
-      prev.disabled = subscriptionIndex === 0;
-      next.disabled = subscriptionIndex >= maxIndex;
-    }
-  }
-
-  function moveSubscription(direction){
-    const maxIndex = Math.max(0,PLANS.length-subscriptionCardsVisible());
-    subscriptionIndex = Math.max(0,Math.min(maxIndex,subscriptionIndex+direction));
-    updateSubscriptionSlider();
-    restartSubscriptionTimer();
-  }
-
-  function restartSubscriptionTimer(){
-    clearInterval(subscriptionTimer);
-    if(window.innerWidth <= 900 && PLANS.length > 1){
-      subscriptionTimer = setInterval(()=>{
-        const maxIndex = Math.max(0,PLANS.length-subscriptionCardsVisible());
-        subscriptionIndex = subscriptionIndex >= maxIndex ? 0 : subscriptionIndex+1;
-        updateSubscriptionSlider();
-      },5000);
-    }
-  }
-
-  document.getElementById("subscriptionPrev")?.addEventListener("click",()=>moveSubscription(-1));
-  document.getElementById("subscriptionNext")?.addEventListener("click",()=>moveSubscription(1));
-  window.addEventListener("resize",()=>{
-    updateSubscriptionSlider();
-    restartSubscriptionTimer();
-  });
-
-  renderSubscriptionPlans();
-  restartSubscriptionTimer();
+renderHcPersonalisedPlans();
 
   // FAQ
   document.getElementById("faq-list").innerHTML = FAQS.map(f=>`

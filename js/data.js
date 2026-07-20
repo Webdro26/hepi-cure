@@ -59,9 +59,9 @@ let MEALS = JSON.parse(localStorage.getItem("hc_meals") || "null") || DEFAULT_ME
 
 const DEFAULT_PLANS = [
   {
-    id:"epicures-pick",
+    id:"hepicures-pick",
     number:"Plan 01 · AI-Curated",
-    name:"The Epicure's Pick",
+    name:"The hepicure's Pick",
     subtitle:"AI-Curated",
     description:"Tell us what you love — our AI crafts a diet plan built entirely around your taste, cravings, and lifestyle. Healthy eating that feels indulgent, not like a compromise.",
     tags:["AI Diet Plan","Taste-First","Monthly Plan"],
@@ -69,7 +69,7 @@ const DEFAULT_PLANS = [
     icon:"curated",
     featured:false,
     buttonText:"I'm Interested",
-    whatsappMessage:"Hello Hepi Cure, I'm interested in The Epicure's Pick subscription plan. Please share more details.",
+    whatsappMessage:"Hello Hepi Cure, I'm interested in The hepicure's Pick subscription plan. Please share more details.",
     tagline:"AI-Curated · Taste-first personalised diet planning",
     price:0,
     period:""
