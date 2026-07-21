@@ -44,12 +44,6 @@
           </div>
         </div>
         <div class="field">
-          
-          <div class="input-wrap">
-            
-          </div>
-        </div>
-        <div class="field">
           <label for="password">Password</label>
           <div class="input-wrap">
             <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
@@ -64,6 +58,9 @@
           <div class="input-wrap">
             <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
             <input type="password" id="confirm" placeholder="Re-enter password" required minlength="6">
+            <button type="button" class="toggle-pass" aria-label="Show password">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-7 11-7 11 7 11 7-4 7-11 7-11-7-11-7z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
           </div>
         </div>
         <p class="form-error" id="regError"></p>
@@ -88,7 +85,6 @@
     errEl.classList.remove("show");
     const name = document.getElementById("name").value.trim();
     const email = document.getElementById("email").value.trim();
-    
     const password = document.getElementById("password").value;
     const confirm = document.getElementById("confirm").value;
 
@@ -99,10 +95,10 @@
     }
     try{
       Auth.register({
-    name,
-    email,
-    password
-});
+        name,
+        email,
+        password
+      });
       toast("Account created! Welcome to Hepi Cure 🌿");
       setTimeout(()=>{
         const pendingOrder = sessionStorage.getItem("hc_pending_order");

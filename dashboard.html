@@ -72,7 +72,7 @@
 
   function renderCats(){
     const el = document.getElementById("catScroll");
-    el.innerHTML = `<button class="cat-chip ${activeCat==='all'?'active':''}" data-cat="all"><span class="ic">🍽️</span>All</button>` +
+    el.innerHTML = `<button class="cat-chip ${activeCat==='all'?'active':''}" data-cat="all"><span class="ic"><img src="images/chefs-thali.png" alt=""></span>All</button>` +
       CATEGORIES.map(c=>`<button class="cat-chip ${activeCat===c.id?'active':''}" data-cat="${c.id}"><span class="ic">${catIconHTML(c.icon)}</span>${c.label}</button>`).join("");
     el.querySelectorAll(".cat-chip").forEach(b=>b.addEventListener("click", ()=>{ activeCat=b.dataset.cat; renderCats(); renderMeals(); }));
   }
