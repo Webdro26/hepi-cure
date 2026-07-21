@@ -339,7 +339,7 @@ input,select,textarea{ font-family:var(--font-body); }
   background:var(--surface); color:var(--text); font-size:14.5px; transition:.25s;
 }
 .field input:focus, .field select:focus, .field textarea:focus{ border-color:var(--terracotta); }
-.field .input-wrap svg{ position:absolute; left:15px; top:50%; transform:translateY(-50%); color:var(--text-muted); pointer-events:none; }
+.field .input-wrap > svg{ position:absolute; left:15px; top:50%; transform:translateY(-50%); color:var(--text-muted); pointer-events:none; }
 .field .input-wrap:has(.toggle-pass) input{ padding-right:46px; }
 .field .toggle-pass{
   position:absolute; right:14px; top:50%; transform:translateY(-50%);
@@ -348,6 +348,7 @@ input,select,textarea{ font-family:var(--font-body); }
   color:var(--text-muted); cursor:pointer; border-radius:8px; transition:.2s;
 }
 .field .toggle-pass:hover{ color:var(--terracotta); background:var(--cream-deep); }
+.field .toggle-pass svg{ position:static; }
 .field-row{ display:flex; align-items:center; justify-content:space-between; margin:-6px 0 20px; font-size:13px; }
 .checkbox-row{ display:flex; align-items:center; gap:8px; color:var(--text-muted); }
 .link-accent{ color:var(--terracotta); font-weight:600; }
