@@ -88,7 +88,7 @@
     errEl.classList.remove("show");
     const name = document.getElementById("name").value.trim();
     const email = document.getElementById("email").value.trim();
-    const phone = document.getElementById("phone").value.trim();
+    
     const password = document.getElementById("password").value;
     const confirm = document.getElementById("confirm").value;
 
@@ -98,7 +98,11 @@
       return;
     }
     try{
-      Auth.register({name, email, phone, password});
+      Auth.register({
+    name,
+    email,
+    password
+});
       toast("Account created! Welcome to Hepi Cure 🌿");
       setTimeout(()=>{
         const pendingOrder = sessionStorage.getItem("hc_pending_order");

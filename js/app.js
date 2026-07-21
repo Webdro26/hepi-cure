@@ -32,38 +32,100 @@ function toast(msg, type="success"){
 
 /* ---------- Mock Auth (localStorage) ---------- */
 const Auth = {
-  currentUser(){
-    try{ return JSON.parse(localStorage.getItem("hc_user")); }catch(e){ return null; }
+  currentUser() {
+    try {
+      return JSON.parse(localStorage.getItem("hc_user"));
+    } catch (e) {
+      return null;
+    }
   },
-  register({name,email,phone,password}){
+
+  register({ name, email, phone, password }) {
     const users = JSON.parse(localStorage.getItem("hc_users") || "{}");
-    if(users[email]) throw new Error("An account with this email already exists.");
-    users[email] = { name, email, phone, password, assessmentDone:false, plan:null, createdAt:Date.now() };
+
+    if (users[email]) {
+      throw new Error("An account with this email already exists.");
+    }
+
+    users[email] = {
+      name,
+      email,
+      phone,
+      password,
+      assessmentDone: false,
+      plan: null,
+      createdAt: Date.now()
+    };
+
     localStorage.setItem("hc_users", JSON.stringify(users));
     localStorage.setItem("hc_user", JSON.stringify(users[email]));
+
     return users[email];
   },
-  login({email,password}){
+
+  login({ email, password }) {
     const users = JSON.parse(localStorage.getItem("hc_users") || "{}");
     const u = users[email];
-    if(!u || u.password !== password) throw new Error("Invalid email or password.");
+
+    if (!u || u.password !== password) {
+      throw new Error("Invalid email or password.");
+    }
+
     localStorage.setItem("hc_user", JSON.stringify(u));
     return u;
   },
-  logout(){ localStorage.removeItem("hc_user"); },
-  updateCurrent(patch){
+
+  logout() {
+    localStorage.removeItem("hc_user");
+  },
+
+  updateCurrent(patch) {
     const u = this.currentUser();
-    if(!u) return;
-    const merged = {...u, ...patch};
+    if (!u) return;
+
+    const merged = { ...u, ...patch };
+
     localStorage.setItem("hc_user", JSON.stringify(merged));
+
     const users = JSON.parse(localStorage.getItem("hc_users") || "{}");
-    if(users[u.email]){ users[u.email] = merged; localStorage.setItem("hc_users", JSON.stringify(users)); }
+
+    if (users[u.email]) {
+      users[u.email] = merged;
+      localStorage.setItem("hc_users", JSON.stringify(users));
+    }
+
     return merged;
   },
-  requireLogin(){
-    if(!this.currentUser()){ window.location.href = "login.html"; }
+
+  requireLogin() {
+    if (!this.currentUser()) {
+      window.location.href = "login.html";
+    }
+  },
+
+  resetPassword({ email, newPassword }) {
+    const users = JSON.parse(localStorage.getItem("hc_users") || "{}");
+
+    if (!users[email]) {
+      throw new Error("No account found with this email.");
+    }
+
+    users[email].password = newPassword;
+
+    localStorage.setItem("hc_users", JSON.stringify(users));
+
+    if (
+      localStorage.getItem("hc_user") &&
+      JSON.parse(localStorage.getItem("hc_user")).email === email
+    ) {
+      localStorage.setItem("hc_user", JSON.stringify(users[email]));
+    }
+
+    return true;
   }
 };
+
+window.Auth = Auth;
 
 /* ---------- Nav scroll shadow ---------- */
 window.addEventListener("scroll", ()=>{
